@@ -1,0 +1,9 @@
+.DS_Store
+venv
+*.zip
+*.img
+*.pyc
+
+build
+dist
+*.egg-info
