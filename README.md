@@ -1,13 +1,4 @@
-OpenELEC Creator
-================
-OpenELEC SDCard Creator
+Raspi OS Installer
+==================
+Simple command line utility to install your favourite OS distro for your Raspberry
 
-Install
--------
-
-    $ sudo python setup.py install
-
-Run
----
-
-    $ sudo openeleccreator
