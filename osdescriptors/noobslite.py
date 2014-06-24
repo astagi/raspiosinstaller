@@ -1,5 +1,5 @@
 from raspberry import Raspberry
 
-class OpenElecTV(Raspberry):
+class NOOBSLite(Raspberry):
   def __str__(self):
-    return 'OpenELEC'
+    return 'NOOBS Lite'

@@ -49,7 +49,7 @@ if current_os == 'Darwin':
     class Burner():
         #returns a list of devices
         def list_devices(self):
-            p = subprocess.Popen(["diskutil", "list", "-plist"], stdout=subprocess.PIPE, 
+            p = subprocess.Popen(["diskutil", "list", "-plist"], stdout=subprocess.PIPE,
                                            stderr=subprocess.PIPE)
             out, err = p.communicate()
             pl = plistlib.readPlistFromString(out)
@@ -73,7 +73,7 @@ if current_os == 'Darwin':
             #inpoll.register( proc.stdout, select.POLLIN )
             kq = select.kqueue()
             ke = select.kevent( proc.stderr )
-            
+
             hadError = False
 
             while True:
@@ -187,7 +187,7 @@ elif current_os == 'Windows':
     class Burner():
         #returns a list of devices
         def list_devices(self):
-            
+
             def get_xml_value(property, default_value=''):
                 if not property:
                     return default_value

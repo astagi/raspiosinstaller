@@ -6,7 +6,6 @@ import sys
 import time
 import re
 import tempfile
-import zipfile
 
 from sdcardburner.imgburner import Burner, ProgressListener
 
@@ -42,16 +41,6 @@ def download_file(url, file_path) :
         sys.stdout.write("\r[%s%s] %s bps" % ('=' * done, ' ' * (50-done), dl//(time.clock() - start)))
   return (time.clock() - start)
 
-def unzip_image(zip_file, outpath):
-  fh = open(zip_file, 'rb')
-  z = zipfile.ZipFile(fh)
-  img_name = ""
-  for name in z.namelist():
-    z.extract(name, outpath)
-    img_name = name
-  fh.close()
-  return os.path.join(outpath, img_name)
-
 def main():
   print "Select the OS you want to install\n"
   i = 1
@@ -69,24 +58,28 @@ def main():
     exit(0)
 
   i = 0
-  print "\nAvailable images:"
+  print "\nAvailable images:\n"
   for image in images:
     i += 1
-    print "%d\t%s\t%s\t%s" % (i, image['date'], image['name'], image['size'])
+    print "%d) %s %s %s" % (i, image['name'], image['size'], image['date'])
   image_index = -1
   while not 0 <= image_index < len(images):
     image_index = int(input('\nSelect the image you want to flash: ')) - 1
   temp_dir = tempfile.gettempdir()
   img_zip = os.path.join(temp_dir, images[image_index]['name'])
+  img_zip = img_zip.replace(' ', '_')
   try:
-    download_file(images[image_index]['url'], img_zip)
+    print img_zip
+    if not os.path.isfile(img_zip):
+      download_file(images[image_index]['url'], img_zip)
   except requests.exceptions.ConnectionError:
     print "\nError downloading requested image. Please check your connection and retry!"
     exit(0)
   print "\nDownload completed!"
   print "Unzipping image... Please wait.."
-  img_to_flash = unzip_image(img_zip, temp_dir)
+  img_to_flash = osdescriptors.register[os_index].unzip_file(img_zip, temp_dir)
   print "Unzipping image completed!"
+  #img_to_flash = img_zip
   progress_listener = MyProgressListener()
   burner = Burner()
   devices = burner.list_devices()
