@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import zipfile
 import gzip
 
-class Raspberry(object):
+class RaspberryOSManager(object):
 
   def __str__(self):
     return self.id

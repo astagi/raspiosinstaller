@@ -1,9 +1,9 @@
-from raspberry import Raspberry
+from raspberryosmanager import RaspberryOSManager
 
 def create_manager(name, id=None):
   if not id:
     id = name
-  return type(name, (Raspberry,), {'id':id})()
+  return type(name, (RaspberryOSManager,), {'id':id})()
 
 register = []
 register.append(create_manager('Raspbian'))
