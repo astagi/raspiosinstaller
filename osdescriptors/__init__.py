@@ -1,8 +1,7 @@
 from openelectv import OpenElecTV
 from raspbian import Raspbian
-from noobslite import NOOBSLite
+from raspberry import Raspberry
 
 register = []
-register.append(OpenElecTV())
-register.append(Raspbian())
-register.append(NOOBSLite())
+register.append(type('OpenElecTV', (Raspberry,), {'id':'OpenELEC'})())
+register.append(type('Raspbian', (Raspberry,), {'id':'Raspbian'})())

@@ -3,10 +3,10 @@ from bs4 import BeautifulSoup
 import zipfile
 import gzip
 
-class Raspberry():
+class Raspberry(object):
 
   def __str__(self):
-    raise NotImplementedError('Remember to define __str__')
+    return self.id
 
   def get_images_list(self):
     return self._get_info()
