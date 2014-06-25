@@ -31,15 +31,30 @@ class Raspberry():
           'size': ''})
         return images_list
 
+  def _is_zip(self, header):
+    zip_header = [0x50, 0x4b, 0x03, 0x04]
+    for header_el in zip(header, zip_header):
+      if ord(header_el[0]) != header_el[1]:
+        return False
+    return True
+
+  def _is_gzip(self, header):
+    zip_header = [0x1f, 0x8b]
+    for header_el in zip(header, zip_header):
+      if ord(header_el[0]) != header_el[1]:
+        return False
+    return True
+
   def unzip_file(self, zip_file, outpath):
-    try:
+    header = open(zip_file, 'rb').read(4)
+    if self._is_gzip(header[:2]):
       fh = gzip.open(zip_file, 'rb')
       decoded = fh.read()
       uncompressed_path = zip_file + 'dec.iso'
       uncompressed_file = open(uncompressed_path,'wb')
       uncompressed_file.write(decoded)
       return uncompressed_path
-    except:
+    if self._is_zip(header):
       fh = open(zip_file, 'rb')
       z = zipfile.ZipFile(fh)
       img_name = ""
