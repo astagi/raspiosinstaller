@@ -42,7 +42,7 @@ def download_file(url, file_path) :
   return (time.clock() - start)
 
 def main():
-  print "Select the OS you want to install\n"
+  print "Operating Systems\n"
   i = 1
   for osdescriptor in osdescriptors.register:
     print "%d) %s" % (i, str(osdescriptor))
@@ -61,7 +61,7 @@ def main():
   print "\nAvailable images:\n"
   for image in images:
     i += 1
-    print "%d) %s %s %s" % (i, image['name'], image['size'], image['date'])
+    print "%d) %s %s (%s)" % (i, image['name'], image['size'], image['date'])
   image_index = -1
   while not 0 <= image_index < len(images):
     image_index = int(input('\nSelect the image you want to flash: ')) - 1
